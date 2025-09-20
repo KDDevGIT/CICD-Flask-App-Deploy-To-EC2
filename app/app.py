@@ -14,6 +14,6 @@ def create_app():
     @app.get("/")
     def index():
         # Minimal route that proves the app is running.
-        return jsonify(message="Hello from Week 20 CI/CD!"), 200
+        return jsonify(message="Test Flask CI/CD!"), 200
 
     return app
