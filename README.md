@@ -1,4 +1,4 @@
-# CICD Flask App Deploy To EC2
+# CICD Flask App Deploy To AWS EC2
 
 ## Demonstration
 
