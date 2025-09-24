@@ -5,6 +5,13 @@
 2) builds & pushes a Docker image to **GitHub Container Registry (GHCR)**,  
 3) deploys to a single **EC2** host via SSH + Docker.
 
+## Security & Cost Notes
+- Lock down SSH: restrict 22 to your IP (Terraform allow_ssh_cidr or SG rule).
+- Never commit secrets: use GitHub Actions secrets.
+- Least privilege: GHCR_TOKEN scoped to read:packages only.
+- Auto-restart: container runs with --restart unless-stopped.
+- Cost: t3.micro is low-cost but billable—destroy when done.
+
 ## Demonstration
 - **CI discipline**: automated tests on every PR/commit to `main`.
 - **Immutable builds**: Docker image tagged with both `:latest` and the commit SHA.
@@ -122,3 +129,4 @@ docker run -d --name flask -p 80:8000 --restart unless-stopped \
 
 curl -fsS http://localhost/health
 ```
+
