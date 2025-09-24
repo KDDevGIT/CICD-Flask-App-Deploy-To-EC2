@@ -60,14 +60,12 @@ curl http://localhost:8080/health
 
 1. Test
 Checkout → Install deps → pytest (validates / and /health).
-
 2. Build & Push
 - Login to GHCR with GITHUB_TOKEN.
 - Build Docker image and tag as:
 - ghcr.io/<OWNER>/<REPO>:latest
 - ghcr.io/<OWNER>/<REPO>:<GITHUB_SHA>
 - Push both tags.
-
 3. Deploy
 - SSH into EC2 using EC2_SSH_KEY.
 - Install Docker if missing.
