@@ -56,8 +56,7 @@ curl http://localhost:8080/health
 ```
 
 ## CI/CD: How It Works
-- Workflow: .github/workflows/ci-cd.yml
-
+Workflow: .github/workflows/ci-cd.yml
 1. Test
 Checkout → Install deps → pytest (validates / and /health).
 2. Build & Push
