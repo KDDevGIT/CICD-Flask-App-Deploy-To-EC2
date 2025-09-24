@@ -76,12 +76,12 @@ Checkout → Install deps → pytest (validates / and /health).
 - Health check against http://localhost/health.
 
 ## Configure GitHub Secrets
-Repository → Settings → Secrets and variables → Actions
+- Repository → Settings → Secrets and variables → Actions
 
-EC2_HOST	     54.XX.XX.XX or ec2-xx-xx-xx.compute.amazonaws.com
-EC2_USER	     ec2-user (Amazon Linux) or ubuntu (Ubuntu)
-EC2_SSH_KEY	     Private SSH key contents (PEM) for the EC2 key pair (paste file contents)
-GHCR_USERNAME	 Your GitHub username
-GHCR_TOKEN	     PAT with read:packages (server-side docker pull from GHCR)
+- EC2_HOST	     54.XX.XX.XX or ec2-xx-xx-xx.compute.amazonaws.com
+- EC2_USER	     ec2-user (Amazon Linux) or ubuntu (Ubuntu)
+- EC2_SSH_KEY	     Private SSH key contents (PEM) for the EC2 key pair (paste file contents)
+- GHCR_USERNAME	 Your GitHub username
+- GHCR_TOKEN	     PAT with read:packages (server-side docker pull from GHCR)
 
-The workflow already sets permissions.packages: write so GITHUB_TOKEN can push images.
+- The workflow already sets permissions.packages: write so GITHUB_TOKEN can push images.
