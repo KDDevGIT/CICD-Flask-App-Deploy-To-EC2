@@ -1,4 +1,4 @@
-# CICD Flask App Deploy To AWS EC2
+# CI/CD Flask App Deploy To AWS EC2
 
 ## A production-style pipeline that:
 1) runs **pytest**,  
@@ -83,3 +83,43 @@ Repository → Settings → Secrets and variables → Actions
 - GHCR_TOKEN	     PAT with read:packages (server-side docker pull from GHCR)
 
 The workflow already sets permissions.packages: write so GITHUB_TOKEN can push images.
+
+### Verification
+```bash
+curl http://<EC2_PUBLIC_IP>/health
+# {"status":"ok"}
+curl http://<EC2_PUBLIC_IP>/
+# {"message":"Test Flask CI/CD!"}
+```
+### Operations Runbook
+```bash
+ssh -i <your-key.pem> ec2-user@<EC2_PUBLIC_IP>
+docker ps
+docker logs -f flask
+```
+### Inspect Container
+```bash
+docker rm -f flask || true
+docker run -d --name flask -p 80:8000 --restart unless-stopped \
+ghcr.io/<OWNER>/<REPO>:latest
+```
+### Update Ports/Names
+```bash
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
+  CONTAINER_NAME: week20-flask
+  CONTAINER_PORT: 8000
+  HOST_PORT: 80
+```
+### Rollback
+```bash
+# On EC2:
+docker login ghcr.io -u <GHCR_USERNAME> -p <GHCR_TOKEN>
+docker pull ghcr.io/<OWNER>/<REPO>:<COMMIT_SHA>
+
+docker rm -f flask || true
+docker run -d --name flask -p 80:8000 --restart unless-stopped \
+  ghcr.io/<OWNER>/<REPO>:<COMMIT_SHA>
+
+curl -fsS http://localhost/health
+```
